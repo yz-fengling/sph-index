@@ -8,9 +8,9 @@
           <div class="loginList">
             <p>尚品汇欢迎您！</p>
             <p>
-              <span>请</span>
-              <a href="###">登录</a>
-              <a href="###" class="register">免费注册</a>
+              <!-- <span></span> -->
+              <router-link to="/login">请登录</router-link>
+              <router-link to="/register" class="register">免费注册</router-link>
             </p>
           </div>
           <div class="typeList">
@@ -28,14 +28,20 @@
       <!--头部第二行 搜索区域-->
       <div class="bottom">
         <h1 class="logoArea">
-          <a class="logo" title="尚品汇" href="###" target="_blank">
+          <router-link to="/" class="logo" title="尚品汇">
             <img src="./images/logo.png" alt />
-          </a>
+          </router-link>
         </h1>
         <div class="searchArea">
           <form action="###" class="searchForm">
-            <input type="text" id="autocomplete" class="input-error input-xxlarge" />
-            <button class="sui-btn btn-xlarge btn-danger" type="button">搜索</button>
+            <input
+              type="text"
+              id="autocomplete"
+              class="input-error input-xxlarge"
+              v-model="keyword"
+            />
+            <!-- 编程式导航:因为有业务 -->
+            <button class="sui-btn btn-xlarge btn-danger" type="button" @click="goSearch">搜索</button>
           </form>
         </div>
       </div>
@@ -48,7 +54,32 @@ export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Header',
   data() {
-    return {}
+    return {
+      //收集用户输入的关键字
+      keyword: ''
+    }
+  },
+  methods: {
+    goSearch() {
+      //路由的跳转,采用的是编程式导航.
+      //路由传递参数
+      //第一种传递query参数
+      // this.$router.push({ path: '/search', query: { keyword: this.keyword } })
+
+      //第二种传递params参数 [一定要注意,面试的时候经常问]
+      // this.$router.push({
+      //   name: 'search',
+      //   params: { keyword: this.keyword || undefined }
+      // })
+      //
+
+      //第三种传递query+params
+      this.$router.push({
+        name: 'search',
+        params: { keyword: this.keyword || undefined },
+        query: { keyword: this.keyword }
+      })
+    }
   }
 }
 </script>
