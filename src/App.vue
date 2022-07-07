@@ -17,6 +17,11 @@ export default {
   components: {
     Header,
     Footer
+  },
+  mounted() {
+    //App的根组件挂载完毕,发一次请求即可.
+    //通知Vuex发请求，获取数据，存储于仓库中
+    this.$store.dispatch('getCategoryList')
   }
 }
 </script>

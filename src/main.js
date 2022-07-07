@@ -4,12 +4,11 @@ import App from './App.vue'
 import router from '@/router'
 //注册三级目录为全局组件
 import TypeNav from '@/components/TypeNav'
-import { reqCategory } from '@/api'
 import store from './store'
 
+//引入mockServe文件,让咱们模拟接口跑起来
+import '@/mock/mockService'
 
-//测试api跳转
-reqCategory()
 Vue.component(TypeNav.name, TypeNav)
 
 Vue.config.productionTip = false
