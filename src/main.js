@@ -9,8 +9,11 @@ import store from './store'
 //引入mockServe文件,让咱们模拟接口跑起来
 import '@/mock/mockService'
 
-Vue.component(TypeNav.name, TypeNav)
+//轮播图全局组件
+import Carousel from '@/components/Carousel'
 
+Vue.component(TypeNav.name, TypeNav)
+Vue.component(Carousel.name, Carousel)
 Vue.config.productionTip = false
 
 new Vue({
