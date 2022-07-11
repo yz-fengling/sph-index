@@ -1,14 +1,16 @@
 //home模块专享的小仓库
 //任何的小仓库:state、mutations、actions、getters
 //引入请求函数
-import { reqBannerList, reqCategory } from '@/api'
+import { reqBannerList, reqCategory, reqFloorList } from '@/api'
 
 //仓库存储数据的地方
 const state = {
   //商品分类的数据,仓库里面数据起始数值不要瞎写【服务器返回的是啥】
   categoryList: [],
   //首页轮播图的数据
-  bannerList: []
+  bannerList: [],
+  //floor数据
+  floorList: []
 }
 
 //唯一可以修改仓库数据地方【工人】
@@ -18,6 +20,9 @@ const mutations = {
   },
   GETBANNERLIST(state, bannerList) {
     state.bannerList = bannerList
+  },
+  GETFLOORLIST(state, floorList) {
+    state.floorList = floorList
   }
 }
 
@@ -40,6 +45,14 @@ const actions = {
     if (result.code === 200) {
       //提交mutation存储服务器数据
       commit('GETBANNERLIST', result.data)
+    }
+  },
+  //获取FloorList数据
+  async getFloorList({ commit }) {
+    let result = await reqFloorList()
+    if (result.code === 200) {
+      //提交mutation存储服务器数据
+      commit('GETFLOORLIST', result.data)
     }
   }
 }
