@@ -18,3 +18,14 @@ export const reqBannerList = () => {
 export const reqFloorList = () => mockRequests({
   method: 'get', url: '/floor'
 })
+
+//搜索模块的请求接口函数:
+//将来根据不同的搜索条件,需要给服务器携带不同的参数
+//请求体携带搜索的参数
+//搜索的条件:它应该是一个对象10K,可有可无，但是data至少是一个空对象
+//没有发现:
+//第一步:整理搜索的参数
+//第二步：根据最新的搜索参数，获取最新的数据展示!!
+export const reqSearchList = (data) => requests({
+  url: '/list', method: 'post', data: data
+})

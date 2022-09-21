@@ -125,13 +125,13 @@ export default {
         }
         //一级分类的a
         if (category1id) {
-          locations.query.category1id = category1id
+          locations.query.category1Id = category1id
         } else if (category2id) {
           //二级分类的a
-          locations.query.category2id = category2id
+          locations.query.category2Id = category2id
         } else if (category3id) {
           //三级分类的a
-          locations.query.category3id = category3id
+          locations.query.category3Id = category3id
         }
         //点击商品分类按钮的时候,如果路径当中携带params参数,需要合并携带给search模块
         if (this.$route.params.keyword) {

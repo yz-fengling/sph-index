@@ -16,12 +16,15 @@ const state = {
 //唯一可以修改仓库数据地方【工人】
 const mutations = {
   GETCATEGORY(state, category) {
+    console.log("获取三级分类列表category", category);
     state.categoryList = category
   },
   GETBANNERLIST(state, bannerList) {
+    console.log("获取首页轮播图bannerList", bannerList);
     state.bannerList = bannerList
   },
   GETFLOORLIST(state, floorList) {
+    console.log("获取FloorList数据列表,例如：豪哥牌洗衣机", floorList);
     state.floorList = floorList
   }
 }
