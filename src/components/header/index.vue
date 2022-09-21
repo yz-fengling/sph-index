@@ -73,12 +73,16 @@ export default {
       // })
       //
 
-      //第三种传递query+params
-      this.$router.push({
+      let locations = {
         name: 'search',
-        params: { keyword: this.keyword || undefined },
-        query: { keyword: this.keyword }
-      })
+        params: { keyword: this.keyword || undefined }
+      }
+      //确定路径当中有query参数
+      if (this.$route.query.categoryName) {
+        locations.query = this.$route.query
+      }
+      //第三种传递query+params
+      this.$router.push(locations)
     }
   }
 }
