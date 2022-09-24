@@ -142,14 +142,15 @@
               </ul>
             </div>
           </div>
+          <!-- 商品展示区域 -->
           <div class="goods-list">
             <ul class="yui3-g">
               <li class="yui3-u-1-5" v-for="good in goodsList" :key="good.id">
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="item.html" target="_blank">
+                    <router-link :to="`/detail/${good.id}`">
                       <img :src="good.defaultImg" />
-                    </a>
+                    </router-link>
                   </div>
                   <div class="price">
                     <strong>
@@ -158,7 +159,7 @@
                     </strong>
                   </div>
                   <div class="attr">
-                    <a target="_blank" href="item.html" :title="good.title">{{good.title}}</a>
+                    <router-link :to="`/detail/${good.id}`" :title="good.title">{{good.title}}</router-link>
                   </div>
                   <div class="commit">
                     <i class="command">
@@ -166,50 +167,30 @@
                       <span>{{good.id}}</span>人评价
                     </i>
                   </div>
-                  <div class="operate">
+                  <!-- <div class="operate">
                     <a
                       href="success-cart.html"
                       target="_blank"
                       class="sui-btn btn-bordered btn-danger"
                     >加入购物车</a>
                     <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                  </div>
+                  </div>-->
                 </div>
               </li>
             </ul>
           </div>
-          <div class="fr page">
-            <div class="sui-pagination clearfix">
-              <ul>
-                <li class="prev disabled">
-                  <a href="#">«上一页</a>
-                </li>
-                <li class="active">
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li class="dotted">
-                  <span>...</span>
-                </li>
-                <li class="next">
-                  <a href="#">下一页»</a>
-                </li>
-              </ul>
-              <div>
-                <span>共10页&nbsp;</span>
-              </div>
-            </div>
+          <!-- 分页的地方 -->
+          <div class="fr page" v-show="total!=0">
+            <Pagination
+              :total="total"
+              :pageSize="searchParams.pageSize"
+              :pageNo="searchParams.pageNo"
+              :pageCount="5"
+              @currentPage="currentPage"
+            ></Pagination>
+          </div>
+          <div class="fr page" v-show="total==0">
+            <span>无此商品</span>
           </div>
         </div>
       </div>
@@ -278,7 +259,7 @@ export default {
       //修改URL
       this.$router.push({ name: 'search', query: this.$route.query })
       //通知兄弟组件清除关键字
-
+      this.$bus.$emit('clearKeyword')
       //为什么这里没有调用发请求函数？
     },
     //面包屑清除品牌回调
@@ -337,6 +318,11 @@ export default {
       this.searchParams.order = newOrder
       //重新发一次请求
       this.getData()
+    },
+    currentPage(pageNo) {
+      //父组件整理参数
+      this.searchParams.pageNo = pageNo
+      this.getData()
     }
   },
   computed: {
@@ -355,6 +341,23 @@ export default {
     },
     isTwo() {
       return this.searchParams.order.indexOf('2') != -1
+    }
+  },
+  //通过watch监听路由的变化---[商品的名字路由里面的吗]
+  watch: {
+    //监听组件VC的$route属性
+    //$route:{},应该用深度监听呀?
+    //$route，是vue-router提供的
+    $route() {
+      // console.log('监听route参数的变化')
+      //先把用户前面存储的1|2|3级别ID清除
+      //发ajax的时候,属性值为undefind,甚至参数K都不携带了【10个搜索条件,可有可无的】
+      this.searchParams.category1Id = undefined
+      this.searchParams.category2Id = undefined
+      this.searchParams.category3Id = undefined
+      //路由变化整理参数：手机最新的商品名字、商品1|2|3ID
+      Object.assign(this.searchParams, this.$route.params, this.$route.query)
+      this.getData()
     }
   }
 }

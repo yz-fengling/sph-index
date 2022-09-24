@@ -59,6 +59,13 @@ export default {
       keyword: ''
     }
   },
+  mounted() {
+    //清除关键字
+    this.$bus.$on('clearKeyword', () => {
+      console.log('删除面包屑中搜索关键子，clearKeyword事件被触发')
+      this.keyword = ''
+    })
+  },
   methods: {
     goSearch() {
       //路由的跳转,采用的是编程式导航.
