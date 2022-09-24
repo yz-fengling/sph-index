@@ -29,3 +29,11 @@ export const reqFloorList = () => mockRequests({
 export const reqSearchList = (data) => requests({
   url: '/list', method: 'post', data: data
 })
+
+//详情模块商品的数据
+export const reqDetailList = (skuId) => requests({
+  url: `/item/${skuId}`, method: 'get'
+})
+
+//加入购物车|将来修改商品个数的接口
+export const reqAddOrUpdateCart = (skuId, skuNum) => requests({ url: `/cart/addToCart/${skuId}/${skuNum}`, method: 'post' })

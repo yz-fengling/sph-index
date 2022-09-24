@@ -5,6 +5,7 @@ Vue.use(Vuex)
 // Vue.config.devtools = true
 import home from './Home'
 import search from './Search'
+import detail from './Detail'
 //对外暴露仓库
 //第一个注意:需要关键字new，你没有new会报错的
 //第二个注意:Store构造函数,书写的时候别小写
@@ -13,6 +14,7 @@ export default new Vuex.Store({
   //vuex新增的一个配置项:模块式开发.右侧V也是对象
   modules: {
     home,
-    search
+    search,
+    detail
   }
 })

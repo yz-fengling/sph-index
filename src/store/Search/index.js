@@ -33,15 +33,15 @@ const actions = {
 const getters = {
   //计算新的属性:state,当前小仓库的数据
   goodsList(state) {
-    return state.searchList.goodsList
+    return state.searchList.goodsList || {}
   },
   //品牌的数据
   trademarkList(state) {
-    return state.searchList.trademarkList
+    return state.searchList.trademarkList || {}
   },
   //商品属性
   attrsList(state) {
-    return state.searchList.attrsList
+    return state.searchList.attrsList || {}
   }
 }
 
